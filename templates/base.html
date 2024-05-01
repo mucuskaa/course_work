@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link type="text/css" rel="stylesheet" href="{% static 'main.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100..900&display=swap" rel="stylesheet">
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+    <div class="body-wrapper">
+        <header class="header">
+            <div class="container">
+                <nav class="navigation">
+                    <a href="#" class="logo"><img class="logo" src="{% static 'img/logo.png' %}" alt="logo"></a>
+                    {% if user.is_authenticated %}
+                    <a href="{% url 'logout' %}" class="logout"><img class="logout" src="{% static 'img/logoutIcon.png' %}" alt="logout"></a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="logout"><img class="logout" src="{% static 'img/logoutIcon.png' %}" alt="logout"></a>
+                    {% endif %}
+                </nav>
+            </div>
+        </header>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

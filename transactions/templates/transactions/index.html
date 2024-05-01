@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Cash Flow</title>
+{% endblock %}
+
+{% block content %}
+    <section class="intro">
+        <div class="container">
+            <div class="intro-content">
+                <div class="intro-text">
+                    <h2 class="greeting">Вітаємо, {{ user.username }}!</h2>
+                    <h1 class="balance-text balance">Баланс гаманця:</h1>
+                    <h1 class="balance">₴{{ user.wallet }}</h1>
+                </div>
+                <div class="buttons">
+                    <a href="#" class="btn">+ Прибуток</a>
+                    <a href="#" class="btn">- Витрати</a>
+                </div>
+            </div>
+            <div class="tickers">
+                {% for content in tickers %}
+                    <div class="ticker">
+                        <div class="ticker-inner">Cash flow Cash flow Cash flow Cash flow Cash flow Cash flow Cash
+                            flow
+                        </div>
+                        <div class="ticker-inner">Cash flow Cash flow Cash flow Cash flow Cash flow Cash flow Cash
+                            flow
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <section class="history">
+        <div class="container">
+            <h1 class="balance history-title">Історія</h1>
+            <div class="history-content">
+                <div class="table-wrap">
+                    <h3 class="table-title">Поповнення</h3>
+                    <div class="table">
+                        {% for item in transactions %}
+                            {% if item.transaction_type == 'income' %}
+                                <p class="date">{{ item.date }}</p>
+                                <div class="test">
+                                    <img class="caticon" src="{{ item.category.image.url }}" alt="Category icon">
+                                    <p class="income category">{{ item.category.name }}</p>
+                                    <p class="income amount">+ {{ item.amount }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <h3 class="table-title">Витрати</h3>
+                    <div class="table">
+                        {% for item in transactions %}
+                            {% if item.transaction_type != 'income' %}
+                                <p class="date">{{ item.date }}</p>
+                                <div class="test">
+                                    <img class="caticon" src="{{ item.category.image.url }}" alt="Category icon">
+                                    <p class="income category">{{ item.category.name }}</p>
+                                    <p class="income amount">- {{ item.amount }}</p>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+{% endblock %}

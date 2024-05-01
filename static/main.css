@@ -1,0 +1,188 @@
+html, body {
+    font-family: "Montserrat", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    margin: 0;
+    box-sizing: border-box;
+    height: 100vh;
+    background: linear-gradient(228deg, rgba(0, 178, 110, 1) 0%, rgba(0, 129, 80, 1) 56%, rgba(0, 76, 47, 1) 100%);
+    color: white;
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 1355px;
+    margin: 0 auto;
+}
+
+.header {
+    position: relative;
+    z-index: 2;
+    background: #2A2A2A;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    width: 175px;
+}
+
+.logout {
+    width: 32px;
+}
+
+.intro {
+    height: calc(100vh - 210px);
+    text-align: center;
+    padding-top: 150px;
+    overflow: hidden;
+}
+
+.intro-content {
+    position: relative;
+    z-index: 2;
+}
+
+.greeting {
+    font-size: 25px;
+    margin-bottom: 12px;
+}
+
+.balance {
+    font-size: 45px;
+    margin: 0;
+}
+
+.balance-text {
+    margin: 0 0 24px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 100px;
+    margin-top: 50px;
+}
+
+.btn {
+    width: 290px;
+    height: 60px;
+    border: 0;
+    border-radius: 25px;
+    background: #2A2A2A;
+    color: white;
+    font-size: 24px;
+    font-weight: 700;
+    filter: drop-shadow(0px 0px 16px #000000);
+    cursor: pointer;
+}
+
+.tickers {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    rotate: 35deg;
+    position: relative;
+    z-index: 0;
+    bottom: 750px;
+    right: 80px;
+}
+
+.ticker {
+    overflow: hidden;
+    white-space: nowrap;
+    box-sizing: border-box;
+    text-transform: uppercase;
+    font-size: 50px;
+    font-weight: 700;
+    color: #FAFAFA;
+    opacity: 0.05;
+    min-width: 115%;
+}
+
+.ticker-inner {
+    display: inline-block;
+    animation: ticker-animation 25s linear infinite;
+}
+
+@keyframes ticker-animation {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+.history {
+    position: relative;
+    z-index: 5;
+}
+
+.history-title {
+    text-align: center;
+    margin-top: 58px;
+}
+
+.history-content {
+    display: flex;
+    gap: 140px;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.table-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.table-title {
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.table {
+    width: 338px;
+    height: 421px;
+    background: #2A2A2A;
+    border-radius: 35px;
+    filter: drop-shadow(0px 0px 16px #000000);
+    padding: 32px 28px;
+}
+
+.date {
+    font-size: 18px;
+    margin: 0 0 10px;
+}
+
+.test {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.caticon {
+    height: 47px;
+    width: 47px;
+}
+
+.income {
+    font-size: 22px;
+}
+
+.category {
+    margin-left: -32px;
+}
+
+.amount {
+    color: #00DE31;
+}
