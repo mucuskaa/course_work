@@ -1,3 +1,4 @@
+from django.core.validators import MinValueValidator
 from django.db import models
 
 TRANSACTION_TYPES = (
@@ -7,7 +8,7 @@ TRANSACTION_TYPES = (
 
 
 class Transaction(models.Model):
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.FloatField(validators=[MinValueValidator(0.00)])
     date = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey('auth_app.User', on_delete=models.CASCADE)
     transaction_type = models.CharField(max_length=50, choices=TRANSACTION_TYPES)

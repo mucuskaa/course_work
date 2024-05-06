@@ -83,6 +83,12 @@ html, body {
     font-weight: 700;
     filter: drop-shadow(0px 0px 16px #000000);
     cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.btn:hover {
+    background: #00754a;
+    transition: background 0.2s, color 0.2s;
 }
 
 .tickers {
@@ -185,4 +191,109 @@ html, body {
 
 .amount {
     color: #00DE31;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #2A2A2A;;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 35px;
+    width: 495px;
+    height: 395px;
+    animation: modal-fall 0.5s ease forwards;
+}
+
+@keyframes modal-fall {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.form-title {
+    margin-top: 44px;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 36px;
+    font-weight: bold;
+    transition: background 0.2s, color 0.2s;
+}
+
+.close:hover,
+.close:focus {
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.form-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-group {
+    display: flex;
+    margin-bottom: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.input-label {
+    margin-left: 16px;
+}
+
+.inc-exp-amount, .inc-exp-category {
+    width: 440px;
+    height: 55px;
+    border-radius: 25px;
+    border: solid 1px #FFFFFF;
+    background: none;
+    font-size: 16px;
+    padding-left: 20px;
+    color: white;
+    cursor: pointer;
+}
+
+.inc-exp-category {
+    width: 461px;
+    height: 59px;
+}
+
+.form-btn {
+    width: 461px;
+    height: 59px;
+    font-size: 16px;
+    background-color: #00754a;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 35px;
+    transition: background 0.2s, color 0.2s;
+}
+
+.form-btn:hover {
+    background-color: #005939;
+    transition: background 0.2s, color 0.2s;
 }
