@@ -128,11 +128,6 @@ html, body {
     }
 }
 
-.history {
-    position: relative;
-    z-index: 5;
-}
-
 .history-title {
     text-align: center;
     margin-top: 58px;
@@ -170,7 +165,7 @@ html, body {
     margin: 0 0 10px;
 }
 
-.test {
+.record {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -186,17 +181,21 @@ html, body {
 }
 
 .category {
-    margin-left: -32px;
+    margin-left: -6px;
 }
 
 .amount {
     color: #00DE31;
 }
 
+.expense-amount {
+    color: #FF0000;
+}
+
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 10;
     left: 0;
     top: 0;
     width: 100%;
@@ -206,6 +205,7 @@ html, body {
 }
 
 .modal-content {
+    z-index: 9;
     background-color: #2A2A2A;;
     margin: 10% auto;
     padding: 20px;
@@ -296,4 +296,10 @@ html, body {
 .form-btn:hover {
     background-color: #005939;
     transition: background 0.2s, color 0.2s;
+}
+
+.form-btn:disabled {
+    background-color: #ccc;
+    color: #777;
+    cursor: not-allowed;
 }

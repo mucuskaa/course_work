@@ -87,7 +87,7 @@
                         {% for item in transactions %}
                             {% if item.transaction_type == "income" %}
                                 <p class="date">{{item.date}}</p>
-                                <div class="test">
+                                <div class="record">
                                     <img class="caticon" src="{{item.category.image.url}}" alt="Category icon">
                                     <p class="income category">{{item.category.name}}</p>
                                     <p class="income amount">+{{item.amount}} ₴</p>
@@ -102,10 +102,10 @@
                         {% for item in transactions %}
                             {% if item.transaction_type != "income" %}
                                 <p class="date">{{item.date}}</p>
-                                <div class="test">
+                                <div class="record">
                                     <img class="caticon" src="{{item.category.image.url}}" alt="Category icon">
                                     <p class="income category">{{item.category.name}}</p>
-                                    <p class="income amount">-{{item.amount}} ₴</p>
+                                    <p class="income amount expense-amount">-{{item.amount}} ₴</p>
                                 </div>
                             {% endif %}
                         {% endfor %}
