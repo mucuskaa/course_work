@@ -2,19 +2,27 @@
 
 {% block content %}
 <div class="container mt-5">
-    <h2>User Registration</h2>
     <form method="post" class="needs-validation" novalidate>
+        <h2 class="reg-title">Реєстрація</h2>
         {% csrf_token %}
         {% for field in form %}
-        <div class="mb-3">
-            <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-            <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="form-control {% if field.errors %}is-invalid{% endif %}" {% if field.field.required %}required{% endif %} value="{{ field.value|default_if_none:'' }}">
+        <div class="form-group reg-group">
+            <label for="{{ field.id_for_label }}" class="input-label reg-label">{{ field.label }}</label>
+            <input type="{{ field.field.widget.input_type }}" name="{{ field.name }}" id="{{ field.id_for_label }}" class="inc-exp-amount reg-input {% if field.errors %}is-invalid{% endif %}" {% if field.field.required %}required{% endif %} value="{{ field.value|default_if_none:'' }}">
         </div>
         {% endfor %}
-        <div class="mb-3">
-            <a href="{% url 'login' %}" class="btn btn-link">Already have an account? Login here</a>
+        <div class="form-group reg-group">
+            <a href="{% url 'login' %}" class="btn btn-link">Вже зареєстровані? Авторизуйтеся</a>
         </div>
-        <button type="submit" class="btn btn-primary">Register</button>
+        <button type="submit" class="btn btn-primary">Зареєструватись</button>
     </form>
+     <div class="tickers">
+         {% for content in tickers %}
+             <div class="ticker">
+                 <div class="ticker-inner">Cash flow Cash flow Cash flow Cash flow Cash flow Cash flow Cash flow</div>
+                 <div class="ticker-inner">Cash flow Cash flow Cash flow Cash flow Cash flow Cash flow Cash flow</div>
+             </div>
+         {% endfor %}
+     </div>
 </div>
 {% endblock %}

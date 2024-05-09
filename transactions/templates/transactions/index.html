@@ -30,12 +30,14 @@
                             </div>
                             <div class="form-group">
                                 <label class="input-label" for="income-category">Категорія:</label>
-                                <select class="inc-exp-category" id="income-category" name="income-category" required>
-                                    <option value="">Оберіть категорію</option>
-                                    {% for category in categories %}
-                                        <option value="{{ category.name }}">{{ category.name }}</option>
-                                    {% endfor %}
-                                </select>
+                                <div class="select-wrapper">
+                                    <select class="inc-exp-category" id="income-category" name="income-category" required>
+                                        <option value="">Оберіть категорію</option>
+                                        {% for category in categories %}
+                                            <option value="{{ category.name }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
                             <button class="form-btn" type="submit">Підтвердити</button>
                         </form>
@@ -43,7 +45,7 @@
                 </div>
 
                 <div id="expense-modal" class="modal">
-                    <div class="modal-content">
+                    <div class="modal-content" id="modal-content">
                         <span class="close" id="close-expense-modal">&times;</span>
                         <h2 class="form-title">Введіть суму витрат</h2>
                         <form class="form-wrap" method="POST" action="{% url 'add-expense' %}">
@@ -54,14 +56,16 @@
                             </div>
                             <div class="form-group">
                                 <label class="input-label" for="expense-category">Категорія:</label>
-                                <select class="inc-exp-category" id="expense-category" name="expense-category" required>
-                                    <option value="">Оберіть категорію</option>
-                                    {% for category in categories %}
-                                        <option value="{{ category.name }}">{{ category.name }}</option>
-                                    {% endfor %}
-                                </select>
-                                <span id="error" style="display: none">занадто велике значення! не достатньо коштів</span>
+                                <div class="select-wrapper">
+                                    <select class="inc-exp-category" id="expense-category" name="expense-category" required>
+                                        <option value="">Оберіть категорію</option>
+                                        {% for category in categories %}
+                                            <option value="{{ category.name }}">{{ category.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             </div>
+                            <span id="error" class="hidden">Занадто велике значення! Не достатньо коштів</span>
                             <button class="form-btn" type="submit" id="expense-btn">Підтвердити</button>
                         </form>
                     </div>

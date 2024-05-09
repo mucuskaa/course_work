@@ -10,6 +10,8 @@ def register_page(request):
 
     form = CustomUserCreationForm()
     context = {}
+    tickers = range(1, 10)
+    context['tickers'] = tickers
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
@@ -27,6 +29,8 @@ def login_page(request):
 
     form = CustomUserLogin()
     context = {'form': form}
+    tickers = range(1, 10)
+    context['tickers'] = tickers
     if request.method == "POST":
         form = CustomUserLogin(request.POST)
         username = request.POST.get('username').lower()
@@ -35,7 +39,7 @@ def login_page(request):
         user = authenticate(request, username=username, password=password)
 
         context['form'] = form
-        context['error'] = 'Invalid username or password'
+        context['error'] = 'Невірне імʼя або пароль'
 
         if user is not None:
             login(request, user)
