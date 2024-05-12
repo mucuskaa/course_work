@@ -11,13 +11,13 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
     password1 = forms.CharField(
-        label='Password',
+        label='Пароль',
         strip=False,
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
     )
 
     password2 = forms.CharField(
-        label='Password confirmation',
+        label='Підтвердити пароль',
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         strip=False,
     )
