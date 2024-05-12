@@ -7,17 +7,35 @@ from django.views.generic import ListView
 from .models import Transaction, Category
 
 
+from django.db.models import Q
+
+
 class TransactionListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = 'transactions/index.html'
     context_object_name = 'transactions'
 
     def get_queryset(self):
+        # This is now unused but left here if needed for other purposes
         return Transaction.objects.filter(user=self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['user'] = self.request.user
+        user = self.request.user
+        context['user'] = user
+
+        income_transactions = Transaction.objects.filter(
+            user=user, transaction_type='income').order_by('-date')[:4]
+        expenses_transactions = Transaction.objects.filter(
+            user=user, transaction_type='expenses').order_by('-date')[:4]
+
+        context['show_more_income'] = Transaction.objects.filter(
+            user=user, transaction_type='income').count() > 4
+        context['show_more_expenses'] = Transaction.objects.filter(
+            user=user, transaction_type='expenses').count() > 4
+
+        context['income_transactions'] = income_transactions
+        context['expenses_transactions'] = expenses_transactions
 
         categories = Category.objects.all()
         context['categories'] = categories
