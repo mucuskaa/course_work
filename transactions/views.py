@@ -65,8 +65,6 @@ class TransactionListView(LoginRequiredMixin, ListView):
         return context
 
 
-
-
 class TransactionIncomeListView(LoginRequiredMixin, ListView):
     model = Transaction
     template_name = 'transactions/income_list.html'
