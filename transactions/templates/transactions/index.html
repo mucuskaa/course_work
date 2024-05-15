@@ -85,7 +85,6 @@
     <div class="container">
         <h1 class="balance history-title">Історія</h1>
         <div class="history-content">
-            <!-- Income Transactions -->
             <div class="table-wrap">
                 <h3 class="table-title">Поповнення</h3>
                 <div class="table">
@@ -102,7 +101,6 @@
                     {% endif %}
                 </div>
             </div>
-            <!-- Expenses Transactions -->
             <div class="table-wrap">
                 <h3 class="table-title">Витрати</h3>
                 <div class="table">
@@ -122,5 +120,35 @@
         </div>
     </div>
 </section>
+<section>
+    <div class="container">
+        <div><canvas id="myChart"></canvas></div>
 
+    </div>
+</section>
+
+<script>
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: [{% for item in qs.labels %} '{{ item }}', {% endfor %}],
+            datasets: [{
+                label: 'Сума',
+                data: [{% for item in qs.data %} {{ item }}, {% endfor %}],
+                backgroundColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(54, 162, 235)',
+                  'rgb(54,235,78)',
+                  'rgb(235,54,69)',
+                  'rgb(235,54,232)',
+                  'rgb(235,135,54)',
+                  'rgb(255, 205, 86)'
+                ],
+                hoverOffset: 4
+            }]
+        },
+    });
+</script>
 {% endblock %}
