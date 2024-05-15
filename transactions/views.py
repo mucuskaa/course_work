@@ -53,13 +53,17 @@ class TransactionListView(LoginRequiredMixin, ListView):
         unique_labels = list(set(labels))
 
         # Побудова словника, де ключі - це назви категорій, а значення - це суми витрат для кожної категорії
-        data = {label: sum(expense.amount for expense in expenses if expense.category.name == label) for label in
+        data = {label: str(sum(expense.amount for expense in expenses if expense.category.name == label)) for label in
                 unique_labels}
+
+        print(data)
 
         context['qs'] = {
             'labels': list(data.keys()),  # Перетворюємо ключі словника у список міток
-            'data': list(data.values()),  # Перетворюємо значення словника у список сум витрат
+            'dat': list(data.values()),  # Перетворюємо значення словника у список сум витрат
         }
+
+        print(context['qs'])
 
         return context
 

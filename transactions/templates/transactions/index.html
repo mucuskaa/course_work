@@ -129,6 +129,10 @@
 
 <script>
     const ctx = document.getElementById('myChart');
+    const test = [{% for item in qs.labels %} '{{ item }}', {% endfor %}]
+    const datas = [{% for item in qs.dat %} {{ item }}, {% endfor %}]
+    console.log(test)
+    console.log(datas)
 
     new Chart(ctx, {
         type: 'pie',
@@ -136,14 +140,14 @@
             labels: [{% for item in qs.labels %} '{{ item }}', {% endfor %}],
             datasets: [{
                 label: 'Сума',
-                data: [{% for item in qs.data %} {{ item }}, {% endfor %}],
+                data: [{% for item in qs.dat %} {{ item }}, {% endfor %}],
                 backgroundColor: [
                   'rgb(255, 99, 132)',
                   'rgb(54, 162, 235)',
                   'rgb(54,235,78)',
-                  'rgb(235,54,69)',
-                  'rgb(235,54,232)',
-                  'rgb(235,135,54)',
+                  'rgb(235,129,54)',
+                  'rgb(235,54,205)',
+                  'rgb(234,29,29)',
                   'rgb(255, 205, 86)'
                 ],
                 hoverOffset: 4
