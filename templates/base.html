@@ -16,7 +16,7 @@
         <header class="header">
             <div class="container">
                 <nav class="navigation">
-                    <a href="#" class="logo"><img class="logo" src="{% static 'img/logo.png' %}" alt="logo"></a>
+                    <a href="{% url 'index' %}" class="logo"><img class="logo" src="{% static 'img/logo.png' %}" alt="logo"></a>
                     {% if user.is_authenticated %}
                     <a href="{% url 'logout' %}" class="logout"><img class="logout" src="{% static 'img/logoutIcon.png' %}" alt="logout"></a>
                     {% else %}

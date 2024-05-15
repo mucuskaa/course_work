@@ -3,16 +3,20 @@ from django.db import models
 
 TRANSACTION_TYPES = (
     ('income', 'income'),
-    ('expenses', 'expenses'),
+    ('expense', 'expense'),
 )
 
 
 class Transaction(models.Model):
-    amount = models.FloatField(validators=[MinValueValidator(0.00)], verbose_name='Сума')
+    amount = models.FloatField(
+        validators=[MinValueValidator(0.00)], verbose_name='Сума')
     date = models.DateTimeField(auto_now_add=True, verbose_name='Дата')
-    user = models.ForeignKey('auth_app.User', on_delete=models.CASCADE, verbose_name='Користувач')
-    transaction_type = models.CharField(max_length=50, choices=TRANSACTION_TYPES, verbose_name='Тип транзакції')
-    category = models.ForeignKey('Category', on_delete=models.CASCADE, null=True, blank=True, verbose_name='Категорія')
+    user = models.ForeignKey(
+        'auth_app.User', on_delete=models.CASCADE, verbose_name='Користувач')
+    transaction_type = models.CharField(
+        max_length=50, choices=TRANSACTION_TYPES, verbose_name='Тип транзакції')
+    category = models.ForeignKey(
+        'Category', on_delete=models.CASCADE, null=True, blank=True, verbose_name='Категорія')
 
     def __str__(self):
         return f"{self.amount}"
@@ -26,6 +30,8 @@ class Transaction(models.Model):
 class Category(models.Model):
     name = models.CharField(max_length=50, verbose_name='Категорія')
     image = models.ImageField(upload_to='category_images', verbose_name='Фото')
+    type_category = models.CharField(
+        max_length=40, choices=TRANSACTION_TYPES, default='income')
 
     def __str__(self):
         return self.name

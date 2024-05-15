@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block head %}
+    <title>Cash Flow</title>
+{% endblock %}
+
+{% block content %}
+
+{% for transaction in transactions %}
+<h1>{{ transaction.amount }} - {{ transaction.category }}</h1>
+{% endfor %}
+
+{% endblock %}

@@ -33,7 +33,7 @@
                                 <div class="select-wrapper">
                                     <select class="inc-exp-category" id="income-category" name="income-category" required>
                                         <option value="">Оберіть категорію</option>
-                                        {% for category in categories %}
+                                        {% for category in categories_income %}
                                             <option value="{{ category.name }}">{{ category.name }}</option>
                                         {% endfor %}
                                     </select>
@@ -59,7 +59,7 @@
                                 <div class="select-wrapper">
                                     <select class="inc-exp-category" id="expense-category" name="expense-category" required>
                                         <option value="">Оберіть категорію</option>
-                                        {% for category in categories %}
+                                        {% for category in categories_expense %}
                                             <option value="{{ category.name }}">{{ category.name }}</option>
                                         {% endfor %}
                                     </select>
@@ -97,14 +97,14 @@
                         </div>
                     {% endfor %}
                     {% if show_more_income %}
-                        <button>Show all</button>
+                        <button><a href="{% url 'all-income' %}">Show full</a></button>
                     {% endif %}
                 </div>
             </div>
             <div class="table-wrap">
                 <h3 class="table-title">Витрати</h3>
                 <div class="table">
-                    {% for item in expenses_transactions %}
+                    {% for item in expense_transactions %}
                         <p class="date">{{item.date}}</p>
                         <div class="record">
                             <img class="caticon" src="{{item.category.image.url}}" alt="Category icon">
@@ -112,8 +112,8 @@
                             <p class="income amount expense-amount">-{{item.amount}} ₴</p>
                         </div>
                     {% endfor %}
-                    {% if show_more_expenses %}
-                        <button>Show full</button>
+                    {% if show_more_expense %}
+                        <button><a href="{% url 'all-expense' %}">Show full</a></button>
                     {% endif %}
                 </div>
             </div>

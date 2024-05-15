@@ -8,7 +8,7 @@ class TransactionAdmin(admin.ModelAdmin):
     list_filter=('date', )
 
 class CategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'name', 'image')
+    list_display = ('id', 'name', 'image', 'type_category')
     search_fileds = ('id', 'name')
 
 admin.site.register(Transaction,TransactionAdmin)

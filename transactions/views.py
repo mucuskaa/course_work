@@ -26,34 +26,37 @@ class TransactionListView(LoginRequiredMixin, ListView):
 
         income_transactions = Transaction.objects.filter(
             user=user, transaction_type='income').order_by('-date')[:4]
-        expenses_transactions = Transaction.objects.filter(
-            user=user, transaction_type='expenses').order_by('-date')[:4]
+        expense_transactions = Transaction.objects.filter(
+            user=user, transaction_type='expense').order_by('-date')[:4]
 
         context['show_more_income'] = Transaction.objects.filter(
             user=user, transaction_type='income').count() > 4
-        context['show_more_expenses'] = Transaction.objects.filter(
-            user=user, transaction_type='expenses').count() > 4
+        context['show_more_expense'] = Transaction.objects.filter(
+            user=user, transaction_type='expense').count() > 4
 
         context['income_transactions'] = income_transactions
-        context['expenses_transactions'] = expenses_transactions
+        context['expense_transactions'] = expense_transactions
 
-        categories = Category.objects.all()
-        context['categories'] = categories
+        categories_income = Category.objects.filter(type_category='income')
+        context['categories_income'] = categories_income
+
+        categories_expense = Category.objects.filter(type_category='expense')
+        context['categories_expense'] = categories_expense
 
         tickers = range(1, 10)
         context['tickers'] = tickers
 
         # Отримуємо всі витрати користувача
-        expenses = Transaction.objects.filter(user=user, transaction_type='expenses').all()
+        expense = Transaction.objects.filter(user=user, transaction_type='expense').all()
 
         # Створюємо список міток (назв категорій) для кожної витрати
-        labels = [expense.category.name for expense in expenses]
+        labels = [expense.category.name for expense in expense]
 
         # Отримуємо унікальні назви категорій
         unique_labels = list(set(labels))
 
         # Побудова словника, де ключі - це назви категорій, а значення - це суми витрат для кожної категорії
-        data = {label: str(sum(expense.amount for expense in expenses if expense.category.name == label)) for label in
+        data = {label: str(sum(expense.amount for expense in expense if expense.category.name == label)) for label in
                 unique_labels}
 
         print(data)
@@ -66,6 +69,24 @@ class TransactionListView(LoginRequiredMixin, ListView):
         print(context['qs'])
 
         return context
+    
+
+class TransactionIncomeListView(LoginRequiredMixin, ListView):
+    model = Transaction
+    template_name = 'transactions/income_list.html'
+    context_object_name = 'transactions'
+
+    def get_queryset(self):
+        return Transaction.objects.filter(user=self.request.user, transaction_type='income').order_by('-date').all()
+    
+
+class TransactionExpenseListView(LoginRequiredMixin, ListView):
+    model = Transaction
+    template_name = 'transactions/expense_list.html'
+    context_object_name = 'transactions'
+
+    def get_queryset(self):
+        return Transaction.objects.filter(user=self.request.user, transaction_type='expense').order_by('-date').all()
 
 
 @login_required
@@ -103,7 +124,7 @@ def add_expense(request):
 
         category = Category.objects.filter(name=category).first()
 
-        transaction_type = 'expenses'
+        transaction_type = 'expense'
         if user.wallet < amount:
             return redirect('index')
 
