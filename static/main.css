@@ -458,3 +458,61 @@ input[type="number"]::-webkit-outer-spin-button {
     margin-top: 0;
 }
 
+.exp-analysis .container h1 {
+    margin-top: 80px;
+}
+
+.analysis-wrap {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    margin: 60px auto;
+    width: fit-content;
+    background: #2A2A2A;
+    box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    padding: 26px 32px;
+    transition: all 400ms ease;
+}
+
+
+.analysis-wrap:hover{
+    transform: scale(1.01);
+    box-shadow: 0 4px 16px -7px rgba(0, 0, 0, 0.3);
+}
+
+.diagram-wrap {
+    display: flex;
+    justify-content: center;
+    width: 500px;
+}
+
+.details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.details ul li {
+    font-weight: 600;
+    font-size: 18px;
+    margin: 18px 0;
+    text-transform: uppercase;
+}
+
+.details .value {
+    font-weight: 800;
+    color: #e63946;
+}
+
+footer {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background: #2A2A2A;
+    height: 80px;
+}
+
+.copyright {
+    font-weight: 500;
+}
+

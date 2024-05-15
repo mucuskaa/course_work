@@ -120,27 +120,36 @@
         </div>
     </div>
 </section>
-<section>
+<section class="exp-analysis">
     <div class="container">
-        <div><canvas id="myChart"></canvas></div>
-
+         <h1 class="balance history-title">Аналіз витрат</h1>
+        <div class="analysis-wrap">
+            <div class="diagram-wrap"><canvas class="diagram" id="myChart"></canvas></div>
+            <div class="details">
+                <ul></ul>
+            </div>
+        </div>
     </div>
 </section>
+<footer class="footer">
+    <p class="copyright">© 2024 Всі права захищені.</p>
+</footer>
 
 <script>
+    const chartData = {
+        labels: [{% for item in qs.labels %} '{{ item }}', {% endfor %}],
+        data: [{% for item in qs.data %} {{ item }}, {% endfor %}],
+    };
     const ctx = document.getElementById('myChart');
-    const test = [{% for item in qs.labels %} '{{ item }}', {% endfor %}]
-    const datas = [{% for item in qs.dat %} {{ item }}, {% endfor %}]
-    console.log(test)
-    console.log(datas)
+    const ul = document.querySelector('.details ul');
 
     new Chart(ctx, {
-        type: 'pie',
+        type: 'doughnut',
         data: {
-            labels: [{% for item in qs.labels %} '{{ item }}', {% endfor %}],
+            labels: chartData.labels,
             datasets: [{
                 label: 'Сума',
-                data: [{% for item in qs.dat %} {{ item }}, {% endfor %}],
+                data: chartData.data,
                 backgroundColor: [
                   'rgb(255, 99, 132)',
                   'rgb(54, 162, 235)',
@@ -153,6 +162,25 @@
                 hoverOffset: 4
             }]
         },
+         options: {
+            borderWidth: 6,
+            borderRadius: 2,
+            plugins: {
+                 legend: {
+                     display: false,
+                 }
+             }
+         }
     });
+
+    const styleUl = () => {
+        chartData.labels.forEach((l, idx) => {
+            let li = document.createElement('li');
+            li.innerHTML = `${l}: <span class='value'>₴${chartData.data[idx]}</span>`;
+            ul.appendChild(li);
+        });
+    };
+
+    styleUl();
 </script>
 {% endblock %}

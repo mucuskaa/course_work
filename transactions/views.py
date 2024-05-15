@@ -46,30 +46,26 @@ class TransactionListView(LoginRequiredMixin, ListView):
         tickers = range(1, 10)
         context['tickers'] = tickers
 
-        # Отримуємо всі витрати користувача
-        expense = Transaction.objects.filter(user=user, transaction_type='expense').all()
+        expense = Transaction.objects.filter(user=user, transaction_type='expense').order_by('-amount')
 
-        # Створюємо список міток (назв категорій) для кожної витрати
         labels = [expense.category.name for expense in expense]
 
-        # Отримуємо унікальні назви категорій
         unique_labels = list(set(labels))
 
-        # Побудова словника, де ключі - це назви категорій, а значення - це суми витрат для кожної категорії
         data = {label: str(sum(expense.amount for expense in expense if expense.category.name == label)) for label in
                 unique_labels}
 
-        print(data)
+        sorted_data = dict(sorted(data.items(), key=lambda x: float(x[1]), reverse=True))
 
         context['qs'] = {
-            'labels': list(data.keys()),  # Перетворюємо ключі словника у список міток
-            'dat': list(data.values()),  # Перетворюємо значення словника у список сум витрат
+            'labels': list(sorted_data.keys()),
+            'data': list(sorted_data.values()),
         }
 
-        print(context['qs'])
-
         return context
-    
+
+
+
 
 class TransactionIncomeListView(LoginRequiredMixin, ListView):
     model = Transaction
