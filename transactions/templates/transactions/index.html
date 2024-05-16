@@ -97,7 +97,7 @@
                         </div>
                     {% endfor %}
                     {% if show_more_income %}
-                        <button><a href="{% url 'all-income' %}">Show full</a></button>
+                        <button class="show-more-btn"><a href="{% url 'all-income' %}"></a></button>
                     {% endif %}
                 </div>
             </div>
@@ -113,7 +113,7 @@
                         </div>
                     {% endfor %}
                     {% if show_more_expense %}
-                        <button><a href="{% url 'all-expense' %}">Show full</a></button>
+                        <button class="show-more-btn"><a href="{% url 'all-expense' %}"></a></button>
                     {% endif %}
                 </div>
             </div>
@@ -122,12 +122,38 @@
 </section>
 <section class="exp-analysis">
     <div class="container">
-         <h1 class="balance history-title">Аналіз витрат</h1>
-        <div class="analysis-wrap">
-            <div class="diagram-wrap"><canvas class="diagram" id="myChart"></canvas></div>
-            <div class="details">
-                <ul></ul>
+        <div class="swiper">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <h1 class="balance history-title">Аналіз витрат</h1>
+                    <div class="analysis-wrap">
+                        <div class="diagram-wrap"><canvas class="diagram" id="myChart"></canvas></div>
+                        <div class="details">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <h1 class="balance history-title">Аналіз надходжень</h1>
+                    <div class="analysis-wrap">
+                        <div class="diagram-wrap"><canvas class="diagram" id="incChart"></canvas></div>
+                        <div class="inc-details">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="swiper-slide">
+                    <h1 class="balance history-title">Аналіз витрат до надходжень</h1>
+                    <div class="analysis-wrap">
+                        <div class="diagram-wrap"><canvas class="diagram" id="totChart"></canvas></div>
+                        <div class="tot-details">
+                            <ul></ul>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
     </div>
 </section>
@@ -139,9 +165,17 @@
     const chartData = {
         labels: [{% for item in qs.labels %} '{{ item }}', {% endfor %}],
         data: [{% for item in qs.data %} {{ item }}, {% endfor %}],
+        incLabels: [{% for item in incqs.labels %} '{{ item }}', {% endfor %}],
+        incData: [{% for item in incqs.data %} {{ item }}, {% endfor %}],
+        totLabels: [{% for item in totqs.labels %} '{{ item }}', {% endfor %}],
+        totData: [{% for item in totqs.data %} {{ item }}, {% endfor %}],
     };
     const ctx = document.getElementById('myChart');
+    const incCtx = document.getElementById('incChart');
+    const totCtx = document.getElementById('totChart');
     const ul = document.querySelector('.details ul');
+    const incUl = document.querySelector('.inc-details ul');
+    const totUl = document.querySelector('.tot-details ul');
 
     new Chart(ctx, {
         type: 'doughnut',
@@ -173,6 +207,57 @@
          }
     });
 
+    new Chart(incCtx, {
+        type: 'doughnut',
+        data: {
+            labels: chartData.incLabels,
+            datasets: [{
+                label: 'Сума',
+                data: chartData.incData,
+                backgroundColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(54, 162, 235)',
+                  'rgb(54,235,78)',
+                ],
+                hoverOffset: 4
+            }]
+        },
+         options: {
+            borderWidth: 6,
+            borderRadius: 2,
+            plugins: {
+                 legend: {
+                     display: false,
+                 }
+             }
+         }
+    });
+
+    new Chart(totCtx, {
+        type: 'doughnut',
+        data: {
+            labels: chartData.totLabels,
+            datasets: [{
+                label: 'Сума',
+                data: chartData.totData,
+                backgroundColor: [
+                  'rgb(54,235,78)',
+                  'rgb(234,29,29)'
+                ],
+                hoverOffset: 4
+            }]
+        },
+         options: {
+            borderWidth: 6,
+            borderRadius: 2,
+            plugins: {
+                 legend: {
+                     display: false,
+                 }
+             }
+         }
+    });
+
     const styleUl = () => {
         chartData.labels.forEach((l, idx) => {
             let li = document.createElement('li');
@@ -181,6 +266,24 @@
         });
     };
 
+    const styleIncUl = () => {
+        chartData.incLabels.forEach((l, idx) => {
+            let li = document.createElement('li');
+            li.innerHTML = `${l}: <span class='value'>₴${chartData.incData[idx]}</span>`;
+            incUl.appendChild(li);
+        });
+    };
+
+    const styleTotUl = () => {
+        chartData.totLabels.forEach((l, idx) => {
+            let li = document.createElement('li');
+            li.innerHTML = `${l}: <span class='value'>₴${chartData.totData[idx]}</span>`;
+            totUl.appendChild(li);
+        });
+    };
+
     styleUl();
+    styleIncUl();
+    styleTotUl();
 </script>
 {% endblock %}

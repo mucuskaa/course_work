@@ -158,8 +158,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .table {
-    width: 338px;
-    height: 421px;
+    width: 370px;
+    height: 436px;
     background: #2A2A2A;
     border-radius: 35px;
     filter: drop-shadow(0px 0px 16px #000000);
@@ -196,6 +196,62 @@ input[type="number"]::-webkit-outer-spin-button {
 
 .expense-amount {
     color: #FF0000;
+}
+
+.show-more-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.show-more-btn a {
+    width: 17px;
+	height: 17px;
+	box-sizing: border-box;
+	position: absolute;
+	left: 50%;
+    bottom: 6%;
+	transform: rotate(135deg);
+
+    &::before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		border-width: 4px 4px 0 0;
+		border-style: solid;
+		border-color: #fafafa;
+		display: block;
+        transition: 0.2s;
+	}
+
+	&:after {
+		content: '';
+		float: left;
+		position: relative;
+		top: -100%;
+		width: 100%;
+		height: 100%;
+		border-width: 0 4px 0 0;
+		border-style: solid;
+		border-color: #fafafa;
+        transition: 0.2s;
+	}
+
+    &:hover::after, &:hover::before {
+        border-color: #a4a4a4;
+        transition: 0.2s;
+	}
+}
+
+.table-wrap {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.extended-table {
+    width: 425px;
+    height: fit-content;
 }
 
 .modal {
@@ -487,21 +543,33 @@ input[type="number"]::-webkit-outer-spin-button {
     width: 500px;
 }
 
-.details ul {
+.details ul, .inc-details ul, .tot-details ul {
     list-style: none;
     padding: 0;
 }
 
-.details ul li {
+.details ul li, .inc-details ul li, .tot-details ul li {
     font-weight: 600;
     font-size: 18px;
     margin: 18px 0;
     text-transform: uppercase;
 }
 
-.details .value {
+.details .value, .inc-details .value, .tot-details .value {
     font-weight: 800;
     color: #e63946;
+}
+
+.swiper-button-prev {
+    left: 11% !important;
+    top: 58% !important;
+    color: white !important;
+}
+
+.swiper-button-next {
+    right: 11% !important;
+    top: 58% !important;
+    color: white !important;
 }
 
 footer {

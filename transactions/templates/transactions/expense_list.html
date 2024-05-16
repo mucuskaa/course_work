@@ -5,9 +5,21 @@
 {% endblock %}
 
 {% block content %}
-
-{% for transaction in transactions %}
-<h1>{{ transaction.amount }} - {{ transaction.category }}</h1>
-{% endfor %}
-
+<section>
+    <div class="container">
+        <h1 class="balance history-title">Історія витрат</h1>
+        <div class="table-wrap">
+            <div class="table extended-table">
+                {% for transaction in transactions %}
+                    <p class="date">{{transaction.date}}</p>
+                    <div class="record">
+                        <img class="caticon" src="{{transaction.category.image.url}}" alt="Category icon">
+                        <p class="income category">{{transaction.category.name}}</p>
+                        <p class="income amount expense-amount">-{{transaction.amount}} ₴</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
