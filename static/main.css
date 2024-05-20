@@ -560,6 +560,10 @@ input[type="number"]::-webkit-outer-spin-button {
     color: #e63946;
 }
 
+.swiper-wrapper {
+    height: auto !important;
+}
+
 .swiper-button-prev {
     left: 11% !important;
     top: 58% !important;
