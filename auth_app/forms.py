@@ -6,9 +6,11 @@ User = get_user_model()
 
 
 class CustomUserCreationForm(UserCreationForm):
-    class Meta(UserCreationForm.Meta):
-        model = User
-        fields = ['username', 'email', 'password1', 'password2']
+    email = forms.EmailField(
+        label='Email',
+        required=True,
+        widget=forms.EmailInput(attrs={'autocomplete': 'email'})
+    )
 
     password1 = forms.CharField(
         label='Пароль',
@@ -21,6 +23,17 @@ class CustomUserCreationForm(UserCreationForm):
         widget=forms.PasswordInput(attrs={'autocomplete': 'new-password'}),
         strip=False,
     )
+
+    class Meta(UserCreationForm.Meta):
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get("password1")
+        password2 = self.cleaned_data.get("password2")
+        if password1 and password2 and password1 != password2:
+            raise forms.ValidationError("Паролі не збігаються!")
+        return password2
 
 
 class CustomUserLogin(forms.ModelForm):

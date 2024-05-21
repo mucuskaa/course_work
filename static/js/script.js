@@ -1,4 +1,3 @@
-// Вибір елементів
 const openIncomeModalButton = document.getElementById("open-income-modal");
 const openExpenseModalButton = document.getElementById("exp-btn");
 
@@ -22,18 +21,16 @@ const expenseFormButton = document.querySelector("#expense-modal .form-btn");
 const errorSpan = document.getElementById("error");
 const modalWindow = document.getElementById("modal-content");
 
-// Відкриття модальних вікон
 openIncomeModalButton.addEventListener("click", () => {
     incomeModal.style.display = "block";
-    validateIncomeForm(); // Перевірка, чи активна кнопка під час відкриття модального вікна
+    validateIncomeForm();
 });
 
 openExpenseModalButton.addEventListener("click", () => {
     expenseModal.style.display = "block";
-    validateExpenseForm(); // Перевірка, чи активна кнопка під час відкриття модального вікна
+    validateExpenseForm();
 });
 
-// Закриття модальних вікон
 closeIncomeModalButton.addEventListener("click", () => {
     incomeModal.style.display = "none";
 });
@@ -42,7 +39,6 @@ closeExpenseModalButton.addEventListener("click", () => {
     expenseModal.style.display = "none";
 });
 
-// Закриття при натисканні поза модальним вікном
 window.addEventListener("click", (event) => {
     if (event.target === incomeModal) {
         incomeModal.style.display = "none";
@@ -52,7 +48,6 @@ window.addEventListener("click", (event) => {
     }
 });
 
-// Функція для перевірки валідності інпутів для прибутків
 function validateIncomeForm() {
     const amount = parseFloat(incomeAmount.value);
     const category = incomeCategory.value;
@@ -64,15 +59,14 @@ function validateIncomeForm() {
     }
 }
 
-// Функція для перевірки валідності інпутів для витрат
 function validateExpenseForm() {
     const expense = parseFloat(expenseAmount.value);
-    const balance = parseFloat(wallet.textContent);
+    wall = wallet.textContent.replace(',','.');
+    const balance = parseFloat(wall);
     const category = expenseCategory.value;
 
     const isExpenseInvalid = isNaN(expense) || expense <= 0 || category === "" || expense > balance;
 
-    // Перевірка валідності інпутів та керування видимістю помилок
     if (isExpenseInvalid) {
         expenseFormButton.disabled = true;
 
@@ -100,14 +94,12 @@ function validateExpenseForm() {
     }
 }
 
-// Обробники подій для перевірки валідності
 incomeAmount.addEventListener("input", validateIncomeForm);
 incomeCategory.addEventListener("change", validateIncomeForm);
 
 expenseAmount.addEventListener("input", validateExpenseForm);
 expenseCategory.addEventListener("change", validateExpenseForm);
 
-// Ініціалізація з самого початку
 validateIncomeForm();
 validateExpenseForm();
 
@@ -123,7 +115,7 @@ validateExpenseForm();
     wrapper.appendChild(selectedDisplay);
 
     const selectItems = document.createElement("div");
-    selectItems.className = "select-items select-hide"; // Список прихований за замовчуванням
+    selectItems.className = "select-items select-hide";
 
     for (let j = 1; j < selElmnt.options.length; j++) {
       const optionDiv = document.createElement("div");
@@ -132,32 +124,28 @@ validateExpenseForm();
       optionDiv.addEventListener("click", function() {
         const select = this.parentNode.parentNode.querySelector("select");
 
-        // Встановлюємо індекс вибраної опції
         const selectedIndex = Array.from(select.options).findIndex(
           option => option.textContent === this.textContent
         );
 
-        // Оновлюємо значення `select`
         select.selectedIndex = selectedIndex;
-        selectedDisplay.textContent = this.textContent; // Оновлюємо відображення вибраної опції
+        selectedDisplay.textContent = this.textContent;
 
-        // Відправляємо подію `change` для валідації
-        select.dispatchEvent(new Event("change")); // Це важливо для активації валідації
+        select.dispatchEvent(new Event("change"));
 
-        // Закриваємо випадаючий список після вибору
         selectItems.classList.add("select-hide");
         selectedDisplay.classList.remove("select-arrow-active");
       });
 
-      selectItems.appendChild(optionDiv); // Додаємо опцію до списку
+      selectItems.appendChild(optionDiv);
     }
 
     wrapper.appendChild(selectItems);
 
     selectedDisplay.addEventListener("click", function(e) {
-      e.stopPropagation(); // Запобігає закриттю при натисканні
+      e.stopPropagation();
       closeAllSelect(this);
-      selectItems.classList.toggle("select-hide"); // Відкриває/закриває список
+      selectItems.classList.toggle("select-hide");
       selectedDisplay.classList.toggle("select-arrow-active");
     });
   });
@@ -168,14 +156,14 @@ validateExpenseForm();
 
     selectItems.forEach((item, index) => {
       if (current !== selectedDisplays[index]) {
-        item.classList.add("select-hide"); // Закриває всі інші списки
+        item.classList.add("select-hide");
         selectedDisplays[index].classList.remove("select-arrow-active");
       }
     });
   }
 
   document.addEventListener("click", function() {
-    closeAllSelect(); // Закриває всі списки при натисканні за межами
+    closeAllSelect();
   });
 })();
 

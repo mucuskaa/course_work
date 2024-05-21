@@ -9,17 +9,19 @@ def register_page(request):
         return redirect('index')
 
     form = CustomUserCreationForm()
-    context = {}
     tickers = range(1, 10)
-    context['tickers'] = tickers
+
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            login(request, form.instance)
+            user = form.save()
+            login(request, user)
             return redirect('index')
-    context['form'] = form
 
+    context = {
+        'form': form,
+        'tickers': tickers,
+    }
     return render(request, 'auth_app/register.html', context)
 
 

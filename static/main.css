@@ -252,6 +252,7 @@ input[type="number"]::-webkit-outer-spin-button {
 .extended-table {
     width: 425px;
     height: fit-content;
+    margin-bottom: 60px;
 }
 
 .modal {
@@ -350,8 +351,8 @@ input[type="number"]::-webkit-outer-spin-button {
 }
 
 .select-selected {
-    width: 462px;
-    height: 57px;
+    width: 438px;
+    height: 53px;
     border-radius: 25px;
     border: solid 1px #FFFFFF;
     background: none;
@@ -588,3 +589,12 @@ footer {
     font-weight: 500;
 }
 
+.alert {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.reg-alert {
+    font-size: 14px;
+    margin: 8px 0 -4px 16px;
+}

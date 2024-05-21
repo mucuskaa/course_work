@@ -6,7 +6,7 @@ from django.db import models
 class User(AbstractUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True, verbose_name='Ім\'я')
     nickname = models.CharField(max_length=50, blank=True, null=True, verbose_name='Нікнейм')
-    email = models.CharField(max_length=100, blank=True, null=True, verbose_name='Почта')
+    email = models.EmailField(max_length=100, blank=True, null=True, verbose_name='Пошта')
     date_of_registration = models.DateTimeField(auto_now_add=True, verbose_name='Дата реєстрації')
     wallet = models.FloatField(default=0, validators=[MinValueValidator(0.00)], verbose_name='Баланс')
 
@@ -16,6 +16,10 @@ class User(AbstractUser, PermissionsMixin):
 
     def __str__(self):
         return f"{self.username}"
+
+    def save(self, *args, **kwargs):
+        self.wallet = round(self.wallet, 2)
+        super(User, self).save(*args, **kwargs)
 
     class Meta:
         verbose_name='Користувач'
