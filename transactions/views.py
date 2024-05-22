@@ -83,7 +83,6 @@ class TransactionListView(LoginRequiredMixin, ListView):
             'data': [str(total_income), str(total_expense)],
         }
 
-        # Add flags to indicate if there is any data
         context['has_income'] = income_transactions.exists()
         context['has_expense'] = expense_transactions.exists()
         context['has_data'] = context['has_income'] or context['has_expense']
